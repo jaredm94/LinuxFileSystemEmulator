@@ -3,10 +3,14 @@
 // CptS 360 - Final Project
 // -------------------------
 
+// Project header
+#include <project.h>
+
 // Globals
 MINODE minode[100],
        *root = 0;
 PROC P0, P1;
+PROC *running;
 
 // Driver
 int main(int argc, char *argv[])
@@ -17,16 +21,23 @@ int main(int argc, char *argv[])
     // Array of command functions
     int (*fncns)(char *pathname) = {menu, make_dir, change_dir, pwd, list_dir, rmdir, creat_file, link, unlink, symlink, rm_file, chmod_file, chown_file, stat_file, touch_file, open_file, close_file, pfd, lseek_file, access_file, read_file, write_file, cat_file, cp_file, mv_file, mount, umount, cs, do_fork, do_ps, sync, quit};
 
+    // Initiate the stuff, you know?
     init();
+
+    // Mount root directory
+    mount_root();
 
     // Loop command input
     while (1)
     {
+      // Currently running process
       printf("P%d running: ", running->pid);
-      printf("input command : ");
+      // Get user input
+      printf("Input command: ");
       fgets(line, 128, stdin);
-      line[strlen(line)-1] = 0;  // kill the \r char at end
-      if (line[0]==0) continue;
+      // Kill the \r char at end
+      line[strlen(line) - 1] = 0;
+      if (line[0] == 0) continue;
 
       sscanf(line, "%s %s %64c", cname, pathname, parameter);
 
@@ -87,7 +98,8 @@ int main(int argc, char *argv[])
     // 1. Prompt user for command
     // 2. Tokenize command
     // 3. Interpret and run
-    return 1;
+    
+      return 1;
 }
 
 int init()
@@ -127,4 +139,5 @@ INODE *iget(int dev, int ino)
 int iput(MINODE *mip)
 {
 
+    return 1;
 }
