@@ -148,3 +148,27 @@ int cs();
 int do_fork();
 int do_ps();
 
+/*         UTILITY FUNCTIONS              */
+
+  int Tokenize(char * path,char ret[][128],char * tok)// tokenize a string and return an array of each detokenized string.
+  {
+    char * s = NULL;
+    char pathcpy[128];// copy of path
+  
+    
+    Node * start= NULL;// node we want to make our CwD
+    
+    strncpy(pathcpy,path, 128); // a copy of the path to strtok
+    s= strtok(pathcpy, tok);     // break up "a/b/c/d" into token
+    strcpy(ret[0],s);// first token added
+    
+    for(i=0;(s = strtok(0, tok));i++)
+    {     // keep calling strtok() with NULL string
+        
+        strcpy(ret[i+1],s);
+        
+    }
+    
+    strcpy(ret[i+1],"\0");
+  }
+    /*************************/
